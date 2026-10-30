@@ -36,7 +36,11 @@ jobs:
           VITE_BASE: /${{ github.event.repository.name }}/
         run: npm run build
 
+      # enablement: true turns on Pages for the repo on first run, avoiding
+      # the "Get Pages site failed: Not Found" error.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
