@@ -12,15 +12,15 @@ import {
   predictNextPeriod,
   getFertileWindow,
   getPregnancyChance,
-  getCyclePhase,
   daysUntilNextPeriod,
 } from '@/domain/cycle';
-import { PHASE_TIPS } from '@/domain/phaseTips';
+import { useTips } from '@/hooks/useTips';
 import type { View } from '@/App';
 
 export function TodayPage({ onNavigate }: { onNavigate: (view: View) => void }) {
   const profile = useProfile();
   const periods = useLiveQuery(() => db.periods.orderBy('startDate').toArray(), []);
+  const tips = useTips();
   const today = todayISO();
 
   if (!periods) return <Loading />;
@@ -32,7 +32,6 @@ export function TodayPage({ onNavigate }: { onNavigate: (view: View) => void }) 
     onBirthControl: profile.onBirthControl,
   });
   const chance = getPregnancyChance(today, fertile);
-  const phase = getCyclePhase(cycleDay, avgLen);
   const until = daysUntilNextPeriod(periods, today, avgLen);
 
   const hasData = periods.length > 0;
@@ -78,13 +77,20 @@ export function TodayPage({ onNavigate }: { onNavigate: (view: View) => void }) 
         )}
       </Card>
 
-      {/* Daily tip based on phase */}
-      {phase && (
-        <TipCard
-          level="info"
-          title={PHASE_TIPS[phase].title}
-          body={PHASE_TIPS[phase].body}
-        />
+      {/* Smart tips from the rule engine */}
+      {tips && tips.length > 0 && (
+        <div className="space-y-3">
+          <SectionTitle>คำแนะนำสำหรับคุณ</SectionTitle>
+          {tips.map((tip) => (
+            <TipCard
+              key={tip.id}
+              level={tip.level}
+              title={tip.title}
+              body={tip.body}
+              link={tip.link}
+            />
+          ))}
+        </div>
       )}
 
       {/* Quick actions */}
@@ -93,7 +99,7 @@ export function TodayPage({ onNavigate }: { onNavigate: (view: View) => void }) 
         <div className="grid grid-cols-3 gap-2">
           <QuickBtn emoji="🩸" label="ประจำเดือน" onClick={() => onNavigate('calendar')} />
           <QuickBtn emoji="📝" label="Check-in" onClick={() => onNavigate('log')} />
-          <QuickBtn emoji="⚖️" label="น้ำหนัก" onClick={() => onNavigate('stats')} />
+          <QuickBtn emoji="⚖️" label="น้ำหนัก" onClick={() => onNavigate('weight')} />
         </div>
       </Card>
 

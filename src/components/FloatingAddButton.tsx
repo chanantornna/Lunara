@@ -50,7 +50,7 @@ export function FloatingAddButton({ actions }: { actions: QuickAction[] }) {
         type="button"
         aria-label="บันทึกด่วน"
         onClick={() => setOpen(true)}
-        className="fixed bottom-[4.5rem] right-4 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-lunara-rose text-3xl text-white shadow-lg active:scale-95"
+        className="fab-hidden-print fixed bottom-[4.5rem] right-4 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-lunara-rose text-3xl text-white shadow-lg active:scale-95"
       >
         +
       </button>

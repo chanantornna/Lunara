@@ -48,3 +48,17 @@ body {
 .pb-safe {
   padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem);
 }
+
+/* Print / PDF export: show only report content */
+@media print {
+  nav,
+  .fab-hidden-print {
+    display: none !important;
+  }
+  main {
+    padding-bottom: 0 !important;
+  }
+  body {
+    background: #fff !important;
+  }
+}

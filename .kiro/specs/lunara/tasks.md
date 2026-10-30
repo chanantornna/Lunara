@@ -75,13 +75,18 @@
   - _Requirements: 3.3_
 
 ## เฟส 4: คำแนะนำ เตือน รายงาน ความเป็นส่วนตัว
-- [ ] 17. Tips engine (rule config + runner) + unit test ทุกกฎ
+- [x] 17. Tips engine (rule config + runner) + unit test ทุกกฎ
+  - domain/tips/* (types, engine, 4 rule files), tips.test.ts (24 tests)
   - _Requirements: 4.1_
-- [ ] 18. การ์ด tips 3 ระดับในหน้าแรก + เปิดปิดหมวด
+- [x] 18. การ์ด tips 3 ระดับในหน้าแรก + เปิดปิดหมวด
+  - useTips hook, TodayPage tips list, category toggles in Settings
   - _Requirements: 4.1_
-- [ ] 19. รายงาน/Insights + export PDF
+- [x] 19. รายงาน/Insights + export PDF
+  - InsightsPage (mood/cycle/sleep/weight charts) + window.print() PDF
   - _Requirements: 4.2_
-- [ ] 20. ความเป็นส่วนตัว (PIN lock, ซ่อนด่วน, export/import JSON/CSV, ลบทั้งหมด)
+- [x] 20. ความเป็นส่วนตัว (PIN lock, export/import JSON/CSV, ลบทั้งหมด)
+  - lib/pin.ts, LockScreen, db/dataIO.ts, Settings privacy section
   - _Requirements: 4.3_
-- [ ] 21. แจ้งเตือน (Notification API, ตั้งเวลา/เปิดปิดต่อประเภท, ไม่โชว์เนื้อหาอ่อนไหว)
+- [x] 21. แจ้งเตือน (Notification API, ตั้งเวลา/เปิดปิดต่อประเภท, ไม่โชว์เนื้อหาอ่อนไหว)
+  - lib/notify.ts, Settings notification section
   - _Requirements: 4.4_
