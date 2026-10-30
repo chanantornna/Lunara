@@ -85,6 +85,52 @@ export function listWeights(): Promise<WeightEntry[]> {
   return db.weights.orderBy('date').toArray();
 }
 
+// ---- Pills (singleton plan id=1) ----
+export async function getPillPlan() {
+  return db.pills.get(1);
+}
+
+export async function savePillPlan(patch: Partial<import('./db').Pill>) {
+  const current = (await db.pills.get(1)) ?? { id: 1 };
+  await db.pills.put({ ...current, ...patch, id: 1 });
+}
+
+export async function setPillTaken(date: string, taken: boolean) {
+  const existing = await db.pillLogs.where('date').equals(date).first();
+  if (existing?.id) await db.pillLogs.update(existing.id, { taken });
+  else await db.pillLogs.add({ date, taken });
+}
+
+export function listPillLogs() {
+  return db.pillLogs.toArray();
+}
+
+// ---- Emergency pills ----
+export async function addEmergencyPill(rec: import('./db').EmergencyPill) {
+  return db.emergencyPills.add(rec);
+}
+
+export async function deleteEmergencyPill(id: number) {
+  return db.emergencyPills.delete(id);
+}
+
+export function listEmergencyPills() {
+  return db.emergencyPills.orderBy('datetime').reverse().toArray();
+}
+
+// ---- Sex logs ----
+export async function addSexLog(rec: import('./db').SexLog) {
+  return db.sexLogs.add(rec);
+}
+
+export async function deleteSexLog(id: number) {
+  return db.sexLogs.delete(id);
+}
+
+export function listSexLogs() {
+  return db.sexLogs.orderBy('date').reverse().toArray();
+}
+
 // ---- Danger zone ----
 export async function clearAllData(): Promise<void> {
   await Promise.all(db.tables.map((t) => t.clear()));

@@ -150,7 +150,7 @@ export function SettingsPage() {
       </Card>
 
       <p className="pb-2 text-center text-xs text-slate-400">
-        {t.appName} · เก็บข้อมูลในเครื่อง · v0.1.0 (เฟส 1)
+        {t.appName} · เก็บข้อมูลในเครื่อง · v0.2.0 (เฟส 1–2)
       </p>
     </div>
   );

@@ -13,6 +13,10 @@ export async function seedSampleData(): Promise<void> {
     db.periodDays.clear(),
     db.checkins.clear(),
     db.weights.clear(),
+    db.pills.clear(),
+    db.pillLogs.clear(),
+    db.emergencyPills.clear(),
+    db.sexLogs.clear(),
   ]);
 
   const today = todayISO();
@@ -66,6 +70,30 @@ export async function seedSampleData(): Promise<void> {
   }
   await db.checkins.bulkAdd(checkins);
 
+  // Phase 2 sample data: an active 28-day pill pack started 5 days ago,
+  // with the last few days ticked as taken.
+  await db.pills.put({
+    id: 1,
+    brand: 'ตัวอย่าง',
+    packType: '28',
+    takeTime: '08:00',
+    packStartDate: addDaysISO(today, -5),
+    active: true,
+  });
+  await db.pillLogs.bulkAdd(
+    [1, 2, 3, 4].map((i) => ({ date: addDaysISO(today, -i), taken: true }))
+  );
+
+  await db.sexLogs.bulkAdd([
+    { date: addDaysISO(today, -3), protection: 'condom', feeling: ['ok'], private: true },
+    { date: addDaysISO(today, -11), protection: 'none', feeling: ['ok'], private: true },
+  ]);
+
+  await db.emergencyPills.add({
+    datetime: new Date(`${addDaysISO(today, -11)}T23:00:00`).toISOString(),
+    reason: 'ตัวอย่าง: ถุงยางแตก',
+  });
+
   await saveProfile({
     birthDate: '1997-05-20',
     heightCm: 162,
@@ -84,6 +112,10 @@ export async function removeSampleData(): Promise<void> {
     db.periodDays.clear(),
     db.checkins.clear(),
     db.weights.clear(),
+    db.pills.clear(),
+    db.pillLogs.clear(),
+    db.emergencyPills.clear(),
+    db.sexLogs.clear(),
   ]);
   await saveSettings({ seedEnabled: false });
 }

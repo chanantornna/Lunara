@@ -7,31 +7,37 @@ import type {
   WeightEntry,
 } from '@/domain/types';
 
-// --- Phase 2-4 tables (schema reserved now; UI added later) ---
+// --- Phase 2 tables ---
+
+/** The active birth-control plan (singleton id=1). */
 export interface Pill {
-  id?: number;
+  id?: number; // always 1
   brand?: string;
-  packType?: '21' | '28';
+  packType?: '21' | '28'; // 21 = 7 placebo/break days, 28 = 7 inactive pills
   takeTime?: string; // HH:mm
-  pillsRemaining?: number;
-  startDate?: string;
+  packStartDate?: string; // ISO date the current pack started
+  active?: boolean;
 }
+
+/** One record per day: whether the active pill was taken. */
 export interface PillLog {
   id?: number;
-  date: string; // ISO
+  date: string; // ISO, unique
   taken: boolean;
 }
+
 export interface EmergencyPill {
   id?: number;
-  datetime: string; // ISO
+  datetime: string; // ISO datetime
   reason?: string;
 }
+
 export interface SexLog {
   id?: number;
-  date: string;
+  date: string; // ISO
   protection?: 'condom' | 'none' | 'other';
-  feeling?: string[];
-  libido?: number;
+  feeling?: string[]; // ok/pain/bleeding
+  libido?: number; // 1-5, optional
   note?: string;
   private?: boolean;
 }

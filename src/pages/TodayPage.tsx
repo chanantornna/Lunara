@@ -16,9 +16,9 @@ import {
   daysUntilNextPeriod,
 } from '@/domain/cycle';
 import { PHASE_TIPS } from '@/domain/phaseTips';
-import type { Tab } from '@/components/BottomNav';
+import type { View } from '@/App';
 
-export function TodayPage({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
+export function TodayPage({ onNavigate }: { onNavigate: (view: View) => void }) {
   const profile = useProfile();
   const periods = useLiveQuery(() => db.periods.orderBy('startDate').toArray(), []);
   const today = todayISO();
@@ -154,7 +154,7 @@ function QuickBtn({
   );
 }
 
-function EmptyPrompt({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
+function EmptyPrompt({ onNavigate }: { onNavigate: (view: View) => void }) {
   return (
     <div className="text-slate-600 dark:text-slate-300">
       <p>{t.common.notEnoughData}</p>
