@@ -6,6 +6,9 @@ const ITEMS: { view: View; emoji: string; title: string; desc: string }[] = [
   { view: 'pill', emoji: '💊', title: 'ยาคุมประจำ', desc: 'ติ๊กกินยา เตือนใกล้หมดแผง' },
   { view: 'emergency', emoji: '🚨', title: 'ยาคุมฉุกเฉิน', desc: 'บันทึกการใช้ นับความถี่' },
   { view: 'sex', emoji: '❤️', title: 'บันทึกเพศสัมพันธ์', desc: 'การป้องกัน · โหมดส่วนตัว' },
+  { view: 'exercise', emoji: '🏃‍♀️', title: 'ออกกำลังกาย', desc: 'บันทึกกิจกรรม · เป้ารายสัปดาห์' },
+  { view: 'sleep', emoji: '😴', title: 'การนอน', desc: 'ชั่วโมงนอน · คุณภาพ · กราฟ' },
+  { view: 'nutrition', emoji: '🍚', title: 'อาหาร & แคลอรี่', desc: 'มื้ออาหาร · เป้าแคลอรี่ · น้ำดื่ม' },
 ];
 
 export function LogHubPage({ onOpen }: { onOpen: (view: View) => void }) {

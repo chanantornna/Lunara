@@ -131,6 +131,52 @@ export function listSexLogs() {
   return db.sexLogs.orderBy('date').reverse().toArray();
 }
 
+// ---- Workouts ----
+export async function addWorkout(rec: import('./db').Workout) {
+  return db.workouts.add(rec);
+}
+export async function deleteWorkout(id: number) {
+  return db.workouts.delete(id);
+}
+export function listWorkouts() {
+  return db.workouts.orderBy('date').reverse().toArray();
+}
+
+// ---- Sleep ----
+export async function upsertSleep(rec: import('./db').Sleep) {
+  const existing = await db.sleeps.where('date').equals(rec.date).first();
+  if (existing?.id) await db.sleeps.put({ ...rec, id: existing.id });
+  else await db.sleeps.add(rec);
+}
+export async function deleteSleep(id: number) {
+  return db.sleeps.delete(id);
+}
+export function listSleeps() {
+  return db.sleeps.orderBy('date').toArray();
+}
+
+// ---- Meals ----
+export async function addMeal(rec: import('./db').Meal) {
+  return db.meals.add(rec);
+}
+export async function deleteMeal(id: number) {
+  return db.meals.delete(id);
+}
+export function listMealsByDate(date: string) {
+  return db.meals.where('date').equals(date).toArray();
+}
+export function listMeals() {
+  return db.meals.toArray();
+}
+
+// ---- Water ----
+export async function addWater(date: string, ml: number) {
+  return db.waterLogs.add({ date, ml });
+}
+export function listWaterByDate(date: string) {
+  return db.waterLogs.where('date').equals(date).toArray();
+}
+
 // ---- Danger zone ----
 export async function clearAllData(): Promise<void> {
   await Promise.all(db.tables.map((t) => t.clear()));

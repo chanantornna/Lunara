@@ -77,6 +77,9 @@ export interface AppSettings {
   seedEnabled?: boolean;
   tipCategories?: Record<string, boolean>;
   notifications?: Record<string, { enabled: boolean; time?: string }>;
+  // Phase 3 goals
+  weeklyWorkoutMinutes?: number; // default 150
+  dailyWaterMl?: number; // default 2000
 }
 
 export class LunaraDB extends Dexie {

@@ -17,6 +17,10 @@ export async function seedSampleData(): Promise<void> {
     db.pillLogs.clear(),
     db.emergencyPills.clear(),
     db.sexLogs.clear(),
+    db.workouts.clear(),
+    db.sleeps.clear(),
+    db.meals.clear(),
+    db.waterLogs.clear(),
   ]);
 
   const today = todayISO();
@@ -94,6 +98,34 @@ export async function seedSampleData(): Promise<void> {
     reason: 'ตัวอย่าง: ถุงยางแตก',
   });
 
+  // Phase 3 sample data
+  await db.workouts.bulkAdd([
+    { date: addDaysISO(today, -1), type: 'walk', minutes: 40, intensity: 'low', calories: 160 },
+    { date: addDaysISO(today, -2), type: 'yoga', minutes: 30, intensity: 'medium', calories: 90 },
+    { date: addDaysISO(today, -4), type: 'run', minutes: 25, intensity: 'high', calories: 270 },
+  ]);
+  await db.sleeps.bulkAdd(
+    [0, 1, 2, 3, 4, 5, 6].map((i) => {
+      const h = 6.5 + Math.sin(i) * 1.2;
+      return {
+        date: addDaysISO(today, -i),
+        bedtime: '23:00',
+        wake: '06:30',
+        hours: +h.toFixed(1),
+        quality: ((i + 2) % 5) + 1,
+      };
+    })
+  );
+  await db.meals.bulkAdd([
+    { date: today, name: 'ข้าวสวย', calories: 160, protein: 3, carbs: 35, fat: 0 },
+    { date: today, name: 'ผัดกะเพราไก่', calories: 440, protein: 28, carbs: 18, fat: 28 },
+    { date: today, name: 'ชาเย็น', calories: 230, protein: 3, carbs: 40, fat: 6 },
+  ]);
+  await db.waterLogs.bulkAdd([
+    { date: today, ml: 500 },
+    { date: today, ml: 300 },
+  ]);
+
   await saveProfile({
     birthDate: '1997-05-20',
     heightCm: 162,
@@ -116,6 +148,10 @@ export async function removeSampleData(): Promise<void> {
     db.pillLogs.clear(),
     db.emergencyPills.clear(),
     db.sexLogs.clear(),
+    db.workouts.clear(),
+    db.sleeps.clear(),
+    db.meals.clear(),
+    db.waterLogs.clear(),
   ]);
   await saveSettings({ seedEnabled: false });
 }

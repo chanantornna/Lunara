@@ -64,11 +64,14 @@
   - _Requirements: 2.3_
 
 ## เฟส 3: ไลฟ์สไตล์
-- [ ] 14. ออกกำลังกาย (บันทึก + เป้ารายสัปดาห์ + สรุป)
+- [x] 14. ออกกำลังกาย (บันทึก + เป้ารายสัปดาห์ + สรุป)
+  - domain/fitness.ts + fitness.test.ts (7 tests), ExercisePage
   - _Requirements: 3.1_
-- [ ] 15. การนอน (เวลา, ชั่วโมง, คุณภาพ, กราฟ)
+- [x] 15. การนอน (เวลา, ชั่วโมง, คุณภาพ, กราฟ)
+  - domain/sleep.ts + sleep.test.ts (4 tests), SleepPage
   - _Requirements: 3.2_
-- [ ] 16. อาหาร/แคลอรี่/น้ำ (ฐานอาหารไทย 30+, เป้าจาก TDEE, กินvsเป้าvsเผาผลาญ, น้ำดื่ม, safe limits)
+- [x] 16. อาหาร/แคลอรี่/น้ำ (ฐานอาหารไทย 32 รายการ, เป้าจาก TDEE, กินvsเป้าvsเผาผลาญ, น้ำดื่ม, safe limits)
+  - domain/nutrition.ts + foodDb.ts + nutrition.test.ts (4 tests), NutritionPage
   - _Requirements: 3.3_
 
 ## เฟส 4: คำแนะนำ เตือน รายงาน ความเป็นส่วนตัว

@@ -8,12 +8,22 @@ import { LogPage } from '@/pages/LogPage';
 import { PillPage } from '@/pages/PillPage';
 import { EmergencyPillPage } from '@/pages/EmergencyPillPage';
 import { SexLogPage } from '@/pages/SexLogPage';
+import { ExercisePage } from '@/pages/ExercisePage';
+import { SleepPage } from '@/pages/SleepPage';
+import { NutritionPage } from '@/pages/NutritionPage';
 import { StatsPage } from '@/pages/StatsPage';
 import { SettingsPage } from '@/pages/SettingsPage';
 import { useTheme } from '@/hooks/useTheme';
 
 // Sub-pages opened from the Log hub (not top-level tabs).
-export type SubView = 'checkin' | 'pill' | 'emergency' | 'sex';
+export type SubView =
+  | 'checkin'
+  | 'pill'
+  | 'emergency'
+  | 'sex'
+  | 'exercise'
+  | 'sleep'
+  | 'nutrition';
 export type View = Tab | SubView;
 
 const SUB_TITLES: Record<SubView, string> = {
@@ -21,6 +31,9 @@ const SUB_TITLES: Record<SubView, string> = {
   pill: 'ยาคุมประจำ',
   emergency: 'ยาคุมฉุกเฉิน',
   sex: 'บันทึกเพศสัมพันธ์',
+  exercise: 'ออกกำลังกาย',
+  sleep: 'การนอน',
+  nutrition: 'อาหาร & แคลอรี่',
 };
 
 const TABS: Tab[] = ['today', 'calendar', 'log', 'stats', 'settings'];
@@ -51,6 +64,9 @@ export default function App() {
         {view === 'pill' && <PillPage />}
         {view === 'emergency' && <EmergencyPillPage />}
         {view === 'sex' && <SexLogPage onNeedEmergency={() => setView('emergency')} />}
+        {view === 'exercise' && <ExercisePage />}
+        {view === 'sleep' && <SleepPage />}
+        {view === 'nutrition' && <NutritionPage />}
         {view === 'stats' && <StatsPage />}
         {view === 'settings' && <SettingsPage />}
       </main>
@@ -60,7 +76,9 @@ export default function App() {
           { label: 'บันทึกประจำเดือน', emoji: '🩸', onSelect: () => setView('calendar') },
           { label: 'Daily Check-in', emoji: '📝', onSelect: () => setView('checkin') },
           { label: 'ติ๊กกินยาคุม', emoji: '💊', onSelect: () => setView('pill') },
-          { label: 'บันทึกเพศสัมพันธ์', emoji: '❤️', onSelect: () => setView('sex') },
+          { label: 'บันทึกออกกำลังกาย', emoji: '🏃‍♀️', onSelect: () => setView('exercise') },
+          { label: 'บันทึกการนอน', emoji: '😴', onSelect: () => setView('sleep') },
+          { label: 'บันทึกอาหาร', emoji: '🍚', onSelect: () => setView('nutrition') },
           { label: 'บันทึกน้ำหนัก', emoji: '⚖️', onSelect: () => setView('stats') },
         ]}
       />
